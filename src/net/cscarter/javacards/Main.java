@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Main {
     static Player[] players;
-    static Deck deck = new Deck();
+    static Dealer dealer = new Dealer("Dealer");
 
     public static void main(String[] args) throws IOException {
         InputStreamReader isr = new InputStreamReader(System.in);
@@ -16,16 +16,13 @@ public class Main {
         int playercount = askPlayerCount(br);
         int shufflecount = askShuffleCount(br);
 
-        //create the dealer
-        Dealer dealer = new Dealer("Dealer");
-
         //create the players
         players = new Player[playercount];
         for (int i = 0; i < playercount; i++){
             players[i] = new Player("Player " + i);
         }
 
-        //dealer get a deck and shuffles
+        //dealer gets a deck and shuffles
         dealer.getDeck();
         System.out.println("Before shuffling: ");
         showHand(dealer);
@@ -33,7 +30,7 @@ public class Main {
         System.out.println("After shuffling: ");
         showHand(dealer);
 
-        dealAllCards(dealer, players);
+        dealAllCards();
 
         System.out.println("After dealing: ");
         showHand(dealer);
@@ -71,7 +68,7 @@ public class Main {
         System.out.println("\n");
     }  //showHand
 
-    static void dealAllCards(Dealer dealer, Player[] players){
+    static void dealAllCards(){
         int counter = 0;
         while(dealer.cardCount() > 0) {
             int targetPlayer = counter % (players.length);
